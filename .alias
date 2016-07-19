@@ -1,0 +1,87 @@
+alias v="vim --servername VIM"
+alias r="R -q"
+alias sshme='ssh -Y -p 1209  zjn780@shamu.coe.utsa.edu'
+alias shamu='sshpass -p "!Mm135246mottahedi" ssh -Y -p 1209 zjn780@shamu.coe.utsa.edu'
+alias cheetah='sshpass -p "01429244" ssh aida.nasirian@cheetah.cbi.utsa.edu'
+alias chrome='google-chrome'
+alias cd..='cd ..'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cwd='cd ~/cwd'
+alias ls='ls -lhg --color --group-directories-first'
+alias dua='du -ah --max-depth=1'
+alias hsync='hubic synchronize'
+alias matlabn='matlab -nosplash -nodesktop'
+alias dropbox='cd $HOME/Dropbox'
+alias save_bash='cp ~/.bashrc $HOME/Dropbox/SHAMU/.dotfiles'
+alias notebook='\ipython notebook'
+alias dpush='drive push'
+alias dpull='drive pull'
+alias dt='cd ~/Desktop'
+alias desktop="cd ~/Desktop"
+alias sb="subl"
+alias canopy="source $HOME/Enthought/Canopy_64bit/User/bin/activate"
+alias colorslist="set | egrep 'COLOR_\w*'"  # lists all the colors
+alias h=history
+alias ..='cd ..'
+alias ...='cd .. ; cd ..'
+alias cdw='cd ~/Downloads'
+alias clc='clear'
+alias show='cat ~/.dirs'
+alias ll='ls -hl'
+alias la='ls -a'
+alias lla='ls -lah'
+alias reloadbash='source ~/.bashrc'
+alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
+alias m='more'
+alias df='df -h' # Show disk usage
+alias tkill='tmux kill-session -t'
+alias tls='tmux ls'
+alias tkilla='killall tmux'
+alias reloadzsh='source ~/.zshrc'
+alias money='cd ~/Dropbox/money'
+
+if [ "$OS" = "linux" ] ; then
+  alias processes_all='ps -AFH'
+else
+  alias processes_all='ps -AFH'
+fi
+
+if [ "$OS" = "linux" ] ; then
+  alias systail='tail -f /var/log/syslog'
+else
+  alias systail='tail -f /var/log/system.log'
+fi
+
+# Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
+alias untar="tar xvzf"
+alias cp_folder="cp -Rpv" #copies folder and all sub files and folders, preserving security and dates
+alias mirror_website="wget -m -x -p --convert-links --no-host-directories --no-cache -erobots=off"
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+   # alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
+if [ "$(hostname)" '==' "shamu.coe.utsa.edu" ]; then
+    alias ls='ls -lhg --color'
+    alias vi="vim"
+    alias v="vim"
+fi
+
+alias pti="ptipython"
+alias lionxf="ssh -Y mpm5815@lionxf.rcc.psu.edu"
+alias jnote='jupyter notebook &'
+alias nilm='cd ~/cwd/NILM/nilm'
+xclip="xclip -selection c"
+alias pysparknotebook="IPYTHON_OPTS='notebook' $SPARK_HOME/bin/pyspark"
+alias syncbook='rclone sync gdrive:ebook /home/mfc/gdrive'
+alias resetNetwork='sudo service network-manager stop && sudo service network-manager start'
