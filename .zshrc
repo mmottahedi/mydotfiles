@@ -106,7 +106,7 @@ if [ "$(hostname)" "==" "sfc" ] ; then
     source /home/sam/.local/bin/virtualenvwrapper.sh
     source $HOME/.virtualenvs/py3/bin/activate
     source $HOME/.virtualenvs/py3/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
-
+    . /home/sam/.config/torch/install/bin/torch-activate
 
     #powerline-shell
     function powerline_precmd() {
@@ -126,6 +126,3 @@ if [ "$(hostname)" "==" "sfc" ] ; then
     	install_powerline_precmd
 	fi
 fi
-
-
-

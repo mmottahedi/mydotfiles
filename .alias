@@ -1,4 +1,5 @@
 alias v="vim --servername VIM"
+alias vi='vim'
 alias r="R -q"
 alias sshme='ssh -Y -p 1209  zjn780@shamu.coe.utsa.edu'
 alias shamu='sshpass -p "!Mm135246mottahedi" ssh -Y -p 1209 zjn780@shamu.coe.utsa.edu'
@@ -40,6 +41,7 @@ alias tls='tmux ls'
 alias tkilla='killall tmux'
 alias reloadzsh='source ~/.zshrc'
 alias money='cd ~/Dropbox/money'
+alias pj='cd ~/Projects/'
 
 if [ "$OS" = "linux" ] ; then
   alias processes_all='ps -AFH'

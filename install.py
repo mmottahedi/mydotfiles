@@ -11,6 +11,7 @@ from os import listdir
 
 FILES = listdir()
 FILES.remove('.git')
-
+FILES.remove('install.py')
+FILES.remove('.ropeproject')
 for file in FILES:
     call(['ln', file, '../'])

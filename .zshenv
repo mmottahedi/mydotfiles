@@ -57,6 +57,10 @@ fi
 
 if [ "$(hostname)" "==" "sfc" ] ; then
     export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:/home/sam/.config/MATLAB/R2014a/bin
+    export MATLAB_EXECUTABLE=/home/sam/.config/MATLAB/R2014a/bin/matlab
+    export MATLABPATH=/home/sam/Documents/MATLAB/yalmip:/home/sam/Documents/MATLAB/SeDuMi_1_3
+
 fi
 
 # Path ------------------------------------------------------------
