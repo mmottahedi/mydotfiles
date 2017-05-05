@@ -100,13 +100,6 @@ save.dotfiles () {
 
 #virualenv
 if [ "$(hostname)" "==" "sfc" ] ; then
-    #VIRTUAL_ENV_DISABLE_PROMPT='' source /home/mfc/Enthought/Canopy_64bit/User/bin/activate
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/Projects
-    source /home/sam/.local/bin/virtualenvwrapper.sh
-    source $HOME/.virtualenvs/py3/bin/activate
-    source $HOME/.virtualenvs/py3/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
-    . /home/sam/.config/torch/install/bin/torch-activate
 
     #powerline-shell
     function powerline_precmd() {
@@ -126,3 +119,16 @@ if [ "$(hostname)" "==" "sfc" ] ; then
     	install_powerline_precmd
 	fi
 fi
+
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+# pip zsh completion end
+

@@ -60,7 +60,29 @@ if [ "$(hostname)" "==" "sfc" ] ; then
     export PATH=$PATH:/home/sam/.config/MATLAB/R2014a/bin
     export MATLAB_EXECUTABLE=/home/sam/.config/MATLAB/R2014a/bin/matlab
     export MATLABPATH=/home/sam/Documents/MATLAB/yalmip:/home/sam/Documents/MATLAB/SeDuMi_1_3
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/Projects
+    export PATH=$PATH:/home/sam/.config/EnergyPlus-8-6-0/
+    export PATH=$PATH:/home/sam/.wine/drive_c/Program\ Files\ \(x86\)/Dymola\ 2017\ FD01/bin/
+    export PATH=$PATH:/usr/local/go/bin/
+    export LPSOLVE=$HOME/.local/lib/lpsolve
+    export JAVA_HOME=/usr/bin/
+    export SEPARATE_PROCESS_JVM=/usr/bin/
+    export SUNDIALS_HOME=/home/sam/temp/sundials-2.7.0/instdir
+    export IPOPT_HOME=$HOME/.config/Ipopt
+    export JMODELICA_HOME=$HOME/.config/JModelica.org/
+	export LD_LIBRARY_PATH="/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH:$LPSOLVE"
+	export OPENTHREADS_INC_DIR="/usr/local/include"
+	export OPENTHREADS_LIB_DIR="/usr/local/lib64:/usr/local/lib"
+	export PATH="$OPENTHREADS_LIB_DIR:$PATH"
+    export OPENMODELICAHOME=/home/sam/temp/OpenModelica/build/
+    export PATH=$PATH:$OPENMODELICAHOME:$OPENMODELICAHOME/bin/
+    source /home/sam/.local/bin/virtualenvwrapper.sh
+    source $HOME/.virtualenvs/py3/bin/activate
+    source $HOME/.virtualenvs/py3/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
+    . /home/sam/.config/torch/install/bin/torch-activate
 
+    
 fi
 
 # Path ------------------------------------------------------------
@@ -75,4 +97,4 @@ if [ -d ~/bin ]; then
 fi
 
 
-source $HOME/.zshrc
+#source $HOME/.zshrc

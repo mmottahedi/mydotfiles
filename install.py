@@ -10,8 +10,10 @@ from subprocess import call
 from os import listdir
 
 FILES = listdir()
-FILES.remove('.git')
-FILES.remove('install.py')
-FILES.remove('.ropeproject')
+try:
+    FILES.remove('.git')
+    FILES.remove('install.py')
+    FILES.remove('.ropeproject')
+except: pass
 for file in FILES:
     call(['ln', file, '../'])

@@ -28,8 +28,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'klen/python-mode'
+"Bundle 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ryanoasis/vim-devicons'
@@ -37,8 +36,14 @@ Plugin 'davidhalter/jedi-vim'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'edkolev/promptline.vim'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
-
-
+Plugin 'airblade/vim-gitgutter'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'python-mode/python-mode'
+Plugin 'ervandew/supertab'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -73,7 +78,10 @@ set mouse=a
 set bs=2
 
 " rebind <leader> key
-let mapleader= ","
+"let mapleader= "\"
+
+" enable folding with spacebar
+nnoremap <space> za
 "better command-completion
 set wildmenu
 
@@ -83,14 +91,13 @@ set showcmd
 set hlsearch
 
 "always show status line
-set laststatus=2
+set laststatus=1
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " " dialogue asking if you wish to save changed files.
 set confirm
 "visual bell
 set visualbell
-
 set hidden
 "Quick quit command
 map <F4> :nohl<CR>
@@ -132,12 +139,13 @@ vnoremap < <gv " better indentation
 vnoremap > >gv " better indentation
 
 
-"show whitespace
-"must be inserted before colorscheme command
-"autocmd ColorScheme *  ExtraWhitespace ctermbg=red guibg=red
-"match ExtraWhitespace /\s\+\%#\@<!$/
-"au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-"au InsertLeave * imatch ExtraWhitespace /\s\+$/
+highlight UnwanttedTab ctermbg=red guibg=darkred
+highlight TrailSpace guibg=red ctermbg=darkred
+match UnwanttedTab /\t/
+match TrailSpace / \+$/ 
+
+autocmd ColorScheme * highlight UnwanttedTab ctermbg=red guibg=darkred
+autocmd ColorScheme * highlight TrailSpace guibg=red ctermbg=darkred
 
 
 
@@ -147,19 +155,20 @@ set tw=79 "width of document
 set nowrap " don't automatically weap on load
 set fo-=t " don't automatically wrap text when typing
 set colorcolumn=80
-highlight ColorColumn ctermbg=233
+highlight ColorColumn ctermbg=100
 
 if has('gui_running')
     set background=dark
     colorscheme solarized
 else
-    "colorscheme zenburn
-    "colorscheme textmate16
-    "color monokai
-    "color codeschool
+    set background=dark
+    colorscheme  solarized
 endif
 
-"call togglebg#map("<F8>")
+"call togglebg#map("<F5>")
+
+hi clear CursorLine
+hi CursorLine gui=underline cterm=underline
 
 
 
@@ -195,6 +204,7 @@ set ignorecase
 set smartcase
 
 set guifont=Monaco:h12
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 "let g:NERDTreeWinPos = "right"
 set guioptions-=T " Removes top toolbar
 set guioptions-=r " Removes right hand scroll bar
@@ -203,13 +213,15 @@ autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> c
 :set cpoptions+=$ " puts a $ marker for the end of words/lines in cw/c$ commands
 
 "python specific
+let g:SimpylFold_docstring_preview=1
+set foldmethod=indent
+set foldlevel=99
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 set statusline=%H%m%r%h%w\ [TYPE=%Y\ %{&ff}]\
 \ [%l/%L\ (%p%%)
 filetype plugin indent on
-au FileType py set autoindent
-au FileType py set smartindent
-au FileType py set textwidth=79 " PEP-8 Friendly
+"let g:ycm_autoclose_preview_window_after_completion=1
+"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
 syntax on
 "python with virtualenv support
@@ -225,7 +237,71 @@ if 'VIRTUAL_ENV' in os.environ:
     exec(code, dict(__file__=activate_this))
 EOF
 
-" NERD_tree config
+"vim-jedi config
+let g:jedi#rename_command = "<leader>j"
+
+"pymode config
+let g:pymode = 1
+let g:pymode_warnings = 1
+let g:pymode_paths = []
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+let g:pyrandintymode_options_colorcolumn = 1
+let g:pymode_quickfix_minheight = 3
+let g:pymode_quickfix_minheight = 3
+let g:pymode_python = 'python3'
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_motion = 1
+let g:pymode_doc = 1
+let g:pymode_doc_bind = 'K'
+let g:pymode_virtualenv = 1
+let g:pymode_virtualenv_path = $VIRTUAL_ENV
+let g:pymode_run = 1
+let g:pymode_run_bind = '<leader>r'
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_breakpoint_cmd = ''
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_unmodified = 0
+let g:pymode_lint_on_fly = 0
+let g:pymode_lint_message = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+"let g:pymode_lint_ignore = "E501,W"
+"let g:pymode_lint_select = "E501,W0011,W430"
+let g:pymode_lint_sort = []
+let g:pymode_lint_cwindow = 1
+let g:pymode_lint_signs = 1
+let g:pymode_lint_todo_symbol = 'WW'
+let g:pymode_lint_comment_symbol = 'CC'
+let g:pymode_lint_visual_symbol = 'RR'
+let g:pymode_lint_error_symbol = 'EE'
+let g:pymode_lint_info_symbol = 'II'
+let g:pymode_lint_pyflakes_symbol = 'FF'
+let g:pymode_rope = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_project_root = ""
+let g:pymode_rope_ropefolder='.ropeproject'
+let g:pymode_rope_show_doc_bind = '<C-c>d'
+let g:pymode_rope_regenerate_on_write = 0
+let g:pymode_rope_completion = 1
+let g:pymode_rope_complete_on_dot = 1
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_autoimport_import_after_complete = 0
+let g:pymode_rope_goto_definition_bind = '<C-c>g'
+let g:pymode_rope_goto_definition_cmd = 'new'
+let g:pymode_rope_rename_bind = '<C-c>rr'
+let g:pymode_syntax = 1
+let g:pymode_syntax_slow_sync = 1
+let g:pymode_syntax_all = 1
+
+
+
+
+
+
+" config nerdTree
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
@@ -287,6 +363,7 @@ let g:syntastic_loc_list_height = 5
 
 " PyMode setup
 let g:pymode = 1
+let g:pymode_python = 'python3'
 "let g:pymode_rope_autoimport=1
 let g:pymode_virtualenv=1
 let g:pymode_run=1
